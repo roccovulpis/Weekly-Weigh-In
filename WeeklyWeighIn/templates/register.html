@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container py-5 h-105">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-10">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+                            <fieldset class="form-group">
+                                <div class="row">
+                                    <!-- First Column: Title and Picture -->
+                                    <div class="col-md-4 text-center">
+                                        <h2 class="fw-bold mb-2 text-uppercase fs-1">Register</h2>
+                                        <img src="{{ url_for('static', filename='photos/site_photos/bigW2.png') }}" alt="W" class="img-fluid mb-4" style="max-height: 200px;">
+                                    </div>
+
+                                    <!-- Second Column: First Name, Last Name, Username -->
+                                    <div class="col-md-4">
+                                        <div class="form-outline form-white mb-4">
+                                            {{ form.first_name.label(class="form-label") }}
+                                            {% if form.first_name.errors %}
+                                                {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.first_name.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.first_name(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-outline form-white mb-4">
+                                            {{ form.last_name.label(class="form-label") }}
+                                            {% if form.last_name.errors %}
+                                                {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.last_name.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.last_name(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-outline form-white mb-4">
+                                            {{ form.username.label(class="form-label") }}
+                                            {% if form.username.errors %}
+                                                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.username.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.username(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <!-- Third Column: Email, Password, Confirm Password -->
+                                    <div class="col-md-4">
+                                        <div class="form-outline form-white mb-4">
+                                            {{ form.email.label(class="form-label") }}
+                                            {% if form.email.errors %}
+                                                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.email.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.email(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-outline form-white mb-4">
+                                            {{ form.password.label(class="form-label") }}
+                                            {% if form.password.errors %}
+                                                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.password.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.password(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-outline form-white mb-4">
+                                            {{ form.confirm_password.label(class="form-label") }}
+                                            {% if form.confirm_password.errors %}
+                                                {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.confirm_password.errors %}
+                                                        <span>Passwords do not match</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.confirm_password(class="form-control form-control-lg") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-group text-center">
+                                {{ form.submit(class="btn btn-outline-info btn-lg px-5 mt-5") }}
+                            </div>
+                        </form>
+
+                        <div class="mt-4 text-center">
+                            <p class="mb-0">Already have an account? <a href="{{ url_for('login') }}" class="text-white-50 fw-bold">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

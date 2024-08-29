@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title%}Fitness Circles{% endblock %}
+
+{% set page_title = "Fitness Circles" %}
+
+{% block content%} 
+
+<div class="container">
+    <div class="row">
+        {% for circle in circles %}
+        <div class="col-md-4 mb-4">
+            <div class="card custom-card">
+                <img src="{{ url_for('static', filename='photos/profile_pics/' + (user.image_file if user.image_file else 'default.png')) }}"
+                    class="card-img-top rounded-circle responsive-img mt-3 ms-3" alt="{{ user.name }}">
+                <div class="card-body">
+                    <h5 class="card-title text-grey">{{ user.username }}</h5>
+                    <a href="https://www.instagram.com/{{ user.instagram_tag }}" target="_blank"
+                        class="btn btn-primary btn-sm">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="button">
+        <a class="btn btn-secondary btn-sm m-1"
+                        href="{{ url_for('create_circle') }}">Create Circle</a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<div class="container mb-4">
+    <div class="card bg-dark text-white" style="border-radius: 1rem; padding: 5px; ">
+        <h2 class="fw-bold mb-2 text-uppercase fs-1 mb-4 mt-3 text-center">Account Information</h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row d-flex align-items-stretch">
+        <!-- First Container: Profile Picture and Username -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white h-100" style="border-radius: 1rem; padding: 20px;">
+                <div class="text-center">
+                    <img class="rounded-circle account-img " src="{{ image_file }}" alt="Profile Picture" width="150" style="border: 2px solid;">
+                    <h2 class="account-heading mt-3">{{ current_user.username }}</h2>
+                    <p class="text-secondary">{{ current_user.username }}</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Container: Form Fields -->
+        <div class="col-md-8">
+            <div class="card bg-dark text-white" style="border-radius: 1rem; padding: 20px;">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-outline form-white mb-4">
+                                    {{ form.first_name.label(class="form-label") }}
+                                    {% if form.first_name.errors %}
+                                    {{ form.first_name(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.first_name.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.first_name(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    {{ form.last_name.label(class="form-label") }}
+                                    {% if form.last_name.errors %}
+                                    {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last_name.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.last_name(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-outline form-white mb-4">
+                                    {{ form.username.label(class="form-label") }}
+                                    {% if form.username.errors %}
+                                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.username(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    {{ form.email.label(class="form-label") }}
+                                    {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.email(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+
+                                <div class="form-group mt-4">
+                                    {{ form.picture.label() }} <br>
+                                    {{ form.picture(class="form-control-file") }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group text-center">
+                        {{ form.submit(class="btn btn-outline-info btn-lg px-5 mt-5") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <!-- First Container: Profile Picture and Username -->
+        <div class="col col-md-4 mb-4">
+            <div class="card bg-dark text-white" style="border-radius: 1rem; padding: 20px;">
+                <div class="text-center">
+                    <img class="rounded-circle account-img " src="{{ image_file }}" alt="Posts" width="150">
+                    <h2 class="account-heading mt-3 align-items-center">Posts</h2>
+                    <div class="form-group text-center">
+                        <a href="{{ url_for('posts') }}" class="btn btn-outline-info btn-lg px-5 mt-2">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-4 mb-4">
+            <div class="card bg-dark text-white" style="border-radius: 1rem; padding: 20px;">
+                <div class="text-center">
+                    <img class="rounded-circle account-img " src="{{ image_file }}" alt="Posts" width="150">
+                    <h2 class="account-heading mt-3 align-items-center">Posts</h2>
+                    <div class="form-group text-center">
+                        <a href="{{ url_for('posts') }}" class="btn btn-outline-info btn-lg px-5 mt-2">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

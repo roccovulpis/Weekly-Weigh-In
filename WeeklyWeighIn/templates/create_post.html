@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container py-5 h-120 mb-4">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-8">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+                            <fieldset class="form-group">
+                                <legend><h2 class="fw-bold mb-2 text-uppercase fs-1">{{ legend }}</h2></legend>
+                                <img src="{{ url_for('static', filename='photos/site_photos/bigW2.png') }}" alt="W" height="150px">
+                                <div class="form-outline form-white mt-4 mb-4">
+                                    {{ form.title.label(class="form-control-label mb-3") }}
+                                    {% if form.title.errors %}
+                                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.title.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.title(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    {{ form.content.label(class="form-control-label mt-2 mb-3") }}
+                                    {% if form.content.errors %}
+                                    {{ form.content(class="form-control form-control-lg") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.content.errors %}
+                                        <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    {{ form.content(class="form-control form-control-lg") }}
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                            <div class="form-group mb-4">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Correct CKEditor Version -->
+<script src="https://cdn.ckeditor.com/4.25.0-lts/standard/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace('content');  // Initialize CKEditor
+</script>
+
+{% endblock %}

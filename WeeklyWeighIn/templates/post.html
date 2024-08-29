@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        overflow: auto;
+    }
+
+    .comment-form {
+        display: none;
+        /* Hide the comment form by default */
+        margin-top: 10px;
+    }
+
+    .btn{
+      color: white;
+    }
+    .btn-outline-info {
+        color: white;
+        border-color: white;
+    }
+  
+    .btn-outline-info:hover {
+        color: white;
+        border-color: white;
+    }
+</style>
+
+<div class="container">
+    <article class="media content-section">
+        <img class="rounded-circle article-img"
+            src="{{ url_for('static', filename='photos/profile_pics/' + post.author.image_file) }}" alt="I"
+            style="border: 2px solid #000000; background-color: #6d6d6d">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username)}}" style="color: black;">
+                    {{ post.author.username }}
+                </a>
+                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d, %H:%M:%S') }}</small>
+                {% if post.author == current_user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm m-1"
+                        href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
+                    <button type="button" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                        Delete
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content" style="color: black;">{{ post.content }}</p>
+        </div>
+    </article>
+
+    <!-- Display Comments -->
+    {% for comment in comments %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img"
+            src="{{ url_for('static', filename='photos/profile_pics/' + comment.comment_author.image_file) }}" alt="I"
+            style="border: 2px solid #000000; background-color: #6d6d6d">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_posts', username=comment.comment_author.username)}}"
+                    style="color: black;">
+                    {{ comment.comment_author.username }}
+                </a>
+                <small class="text-muted">{{ comment.date_posted.strftime('%Y-%m-%d, %H:%M:%S') }}</small>
+            </div>
+            <p class="article-content" style="color: black;">{{ comment.content }}</p>
+        </div>
+    </article>
+    {% endfor %}
+
+    <!-- Comment form -->
+    <div id="comment-form" class="comment-form">
+        <form method="POST" action="{{ url_for('post', post_id=post.id) }}">
+            {{ form.hidden_tag() }} <!-- Ensure CSRF token is present -->
+            <div class="form-group">
+                {{ form.content.label(class="form-control-label mt-2 mb-3") }}
+                {% if form.content.errors %}
+                {{ form.content(class="form-control form-control-lg is-invalid") }} <!-- Display invalid field -->
+                <div class="invalid-feedback">
+                    {% for error in form.content.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.content(class="form-control form-control-lg") }} <!-- Display regular field -->
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-outline-info mt-2">{{ form.submit.label }}</button>
+        </form>
+    </div>
+
+    <!-- Comment button -->
+
+   
+        <button class="btn btn-secondary btn-sm m-1" onclick="toggleCommentForm()">Comment</button>
+
+
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel" style="color: black;">Delete Post?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: black;">Are you sure you want to delete this post?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCommentForm() {
+        var form = document.getElementById('comment-form');
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<section>
+  <div class="container py-5 h-120">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+          
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <h2 class="fw-bold mb-2 text-uppercase fs-1">Welcome</h2>
+                    <img src={{ url_for('static', filename='photos/site_photos/bigW2.png') }} alt="W" height="150px">
+                    <div class="form-outline form-white mt-4 mb-4">
+                      {{ form.username.label(class="form-control-label mb-3") }}
+                      {% if form.username.errors %}
+                          {{ form.username(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.username.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.username(class="form-control form-control-lg") }}
+                      {% endif %}
+                  </div>
+                  
+                    <div class="form-outline form-white mb-4">
+                        {{ form.password.label(class="form-control-label mt-2 mb-3") }}
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-check form-group d-flex align-items-center mb-4">
+                      {{ form.remember(class="form-check-input me-2") }}
+                      {{ form.remember.label(class="form-check-label ") }}
+                  </div>
+
+                </fieldset>
+                <div class="form-group mb-4">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+                <small class="text-muted ml-2">
+                    <a href="{{ url_for('reset_password') }}">Forgot Password?</a>
+                </small>
+                <div class="mt-4">
+                  <p class="mb-0">Dont have an account? <a href="{{ url_for('register') }}" class="text-white-50 fw-bold">Register</a></p>
+              </div>
+            </form>
+           
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+{% endblock %}

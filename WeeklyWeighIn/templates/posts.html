@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% set page_title = "Posts" %}
+
+{% block content %}
+
+<style>
+  body {
+    overflow: auto;
+  }
+  .btn{
+    color: white;
+  }
+  .btn-outline-info {
+      color: white;
+      border-color: white;
+  }
+
+  .btn-outline-info:hover {
+      color: white;
+      border-color: white;
+  }
+</style>
+
+
+<div class="container">
+
+  {% for post in posts %}
+
+  <article class="media content-section">
+    <img class="rounded-circle article-img"
+      src="{{ url_for('static', filename='photos/profile_pics/' + post.author.image_file) }}" alt="I" style="border: 2px solid #000000; background-color: #6d6d6d">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username)}}" style="color: black;">{{ post.author.username }}</a>
+        <small class="text-muted">{{ post.date_posted.strftime('%b %d, %Y %I:%M %p') }}</small>
+
+      </div>
+      <h2><a class="article-title" href="{{ url_for('post', post_id=post.id)}}">{{ post.title }}</a></h2>
+      <p class="article-content" style="color: black;">{{ post.content }}</p>
+    </div>
+  </article>
+
+  {% endfor %}
+
+  {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+      {% if posts.page == page_num %}
+      <a class="btn btn-info mb-4" href="{{ url_for('posts', page=page_num) }}">{{ page_num }}</a>
+      {% else %}
+      <a class="btn btn-outline-info mb-4" href="{{ url_for('posts', page=page_num) }}">{{ page_num }}</a>
+      {% endif %}
+  {% else %}
+  ...
+  {% endif %}
+  {% endfor %}
+
+  {% endblock %}
+
+
+
+</div>
