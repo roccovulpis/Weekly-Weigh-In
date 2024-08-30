@@ -46,11 +46,11 @@
     <div class="row">
         {% for user in users %}
         <div class="col-md-4 mb-4">
-            <div class="card custom-card">
+            <div class="card custom-card" style="width: 400px; height: 300px;">
                 <img src="{{ url_for('static', filename='photos/profile_pics/' + (user.image_file if user.image_file else 'default.png')) }}"
                     class="card-img-top rounded-circle responsive-img mt-3 ms-3" alt="{{ user.name }}">
                 <div class="card-body">
-                    <h5 class="card-title text-grey">{{ user.username }}</h5>
+                    <h5 class="card-title text-grey mt-3">{{ user.username }}</h5>
                     <a href="https://www.instagram.com/{{ user.instagram_tag }}" target="_blank"
                         class="btn btn-primary btn-sm">
                         <i class="fab fa-instagram"></i> Instagram
