@@ -6,6 +6,29 @@
 
 {% block content %}
 
+<style>
+    .macro-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+    .macro-display {
+        text-align: center;
+        flex: 1 1 25px;
+        padding: 10px;
+    }
+    .macro-count-display {
+        padding: 10px;
+        height: 5rem;
+        background-color: transparent;
+        content: "Hi";
+        color: hsl(0, 0%, 100%);
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+
 <div class="container py-2 h-100">
     <div class="row d-flex">
         <div class="col-12 col-md-12 mb-5">
@@ -22,6 +45,22 @@
                     <div class="mb-5" style="border: 5px solid white; border-radius: 8px; padding: 15px;">
                         <h1 class="mb-2" style="border: 2px;">Breakfast</h1>
                         <hr style="border-width: 2px;">
+
+                        <div class="macro-container">
+                            <div class="macro-display" id="protein-count">
+                                <h2>Protein</h2>
+                                <input class="macro-count-display" type="text" placeholder="Hi" disabled>
+                            </div>
+                            <div class="macro-display" id="fat-count">
+                                <h2>Fat</h2>
+                                <input class="macro-count-display" type="text" disabled>
+                            </div>
+                            <div class="macro-display" id="carb-count">
+                                <h2>Carbs</h2>
+                                <input class="macro-count-display" type="text" disabled>
+                            </div>
+                        </div>
+
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control mb-2" type="search" placeholder="Search" aria-label="Search">
                             <div class="d-flex justify-content-center">
